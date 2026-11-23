@@ -6,7 +6,7 @@
 
     <meta
         name="description"
-        content="Prototipo de calculadora para cajas de frutas"
+        content="Prototipo de calculadora para cajas y cartones de frutas"
     >
 
     <title>Calculadora de cajas de fruta</title>
@@ -24,7 +24,7 @@
             </h1>
 
             <p class="encabezado__descripcion">
-                Selecciona una caja para agregarla al resumen de la venta.
+                Selecciona una caja o cartón para agregarlo al resumen de la venta.
             </p>
         </div>
     </header>
@@ -48,13 +48,14 @@
                 </p>
             </div>
 
+            <!-- MANZANAS (Caja y Cartón) -->
             <section
                 class="categoria"
                 aria-labelledby="titulo-manzanas"
             >
                 <div class="categoria__encabezado">
                     <h3 id="titulo-manzanas" class="categoria__titulo">
-                        Cajas de manzana
+                        Manzanas (Caja o cartón)
                     </h3>
 
                     <span class="categoria__contador">
@@ -64,15 +65,11 @@
 
                 <div class="productos-grid">
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="manzana-verde"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/manzana-verde.jpg"
-                                    alt="Imagen de caja de manzana verde"
+                                    src="images/manzana verde.png"
+                                    alt="Imagen de manzana verde"
                                 >
                             </div>
 
@@ -82,7 +79,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de manzana
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -90,22 +87,33 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="manzana-verde"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="manzana-verde"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="manzana-california"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/manzana-california.jpg"
-                                    alt="Imagen de caja de manzana California"
+                                    src="images/manzana california.png"
+                                    alt="Imagen de manzana California"
                                 >
                             </div>
 
@@ -115,7 +123,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de manzana
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -123,22 +131,33 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="manzana-california"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="manzana-california"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="manzana-amarilla"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/manzana-amarilla.jpg"
-                                    alt="Imagen de caja de manzana amarilla"
+                                    src="images/manzana amarilla.png"
+                                    alt="Imagen de manzana amarilla"
                                 >
                             </div>
 
@@ -148,7 +167,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de manzana
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -156,22 +175,33 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="manzana-amarilla"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="manzana-amarilla"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="manzana-gala"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/manzana-gala.jpg"
-                                    alt="Imagen de caja de manzana Gala"
+                                    src="images/manzana gala.png"
+                                    alt="Imagen de manzana Gala"
                                 >
                             </div>
 
@@ -181,7 +211,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de manzana
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -189,22 +219,33 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="manzana-gala"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="manzana-gala"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="manzana-pink-lady"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/manzana-pink-lady.jpg"
-                                    alt="Imagen de caja de manzana Pink Lady"
+                                    src="images/manzana pink lady.png"
+                                    alt="Imagen de manzana Pink Lady"
                                 >
                             </div>
 
@@ -214,7 +255,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de manzana
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -222,14 +263,30 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="manzana-pink-lady"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="manzana-pink-lady"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </section>
 
+            <!-- UVAS (Solo Caja) -->
             <section
                 class="categoria"
                 aria-labelledby="titulo-uvas"
@@ -250,11 +307,12 @@
                             class="producto-card__boton"
                             type="button"
                             data-producto="uva-verde"
+                            data-presentacion="caja"
                         >
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/uva-verde.jpg"
-                                    alt="Imagen de caja de uva verde"
+                                    src="images/uva verde.png"
+                                    alt="Imagen de uva verde"
                                 >
                             </div>
 
@@ -264,7 +322,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de uva
+                                    Solo caja de uva
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -273,7 +331,7 @@
                             </div>
 
                             <span class="producto-card__accion">
-                                Agregar
+                                + Agregar caja
                             </span>
                         </button>
                     </article>
@@ -283,11 +341,12 @@
                             class="producto-card__boton"
                             type="button"
                             data-producto="uva-roja"
+                            data-presentacion="caja"
                         >
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/uva-roja.jpg"
-                                    alt="Imagen de caja de uva roja"
+                                    src="images/uva roja.png"
+                                    alt="Imagen de uva roja"
                                 >
                             </div>
 
@@ -297,7 +356,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de uva
+                                    Solo caja de uva
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -306,20 +365,21 @@
                             </div>
 
                             <span class="producto-card__accion">
-                                Agregar
+                                + Agregar caja
                             </span>
                         </button>
                     </article>
                 </div>
             </section>
 
+            <!-- PERAS (Caja y Cartón) -->
             <section
                 class="categoria"
                 aria-labelledby="titulo-peras"
             >
                 <div class="categoria__encabezado">
                     <h3 id="titulo-peras" class="categoria__titulo">
-                        Cajas de pera
+                        Peras (Caja o cartón)
                     </h3>
 
                     <span class="categoria__contador">
@@ -329,15 +389,11 @@
 
                 <div class="productos-grid">
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="pera-forell"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/pera-forell.jpg"
-                                    alt="Imagen de caja de pera Forell"
+                                    src="images/pera forell.png"
+                                    alt="Imagen de pera Forell"
                                 >
                             </div>
 
@@ -347,7 +403,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de pera
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -355,22 +411,33 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="pera-forell"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="pera-forell"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="pera-piedra-cafe"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/pera-piedra-cafe.jpg"
-                                    alt="Imagen de caja de pera piedra café"
+                                    src="images/pera piedra cafe.png"
+                                    alt="Imagen de pera piedra café"
                                 >
                             </div>
 
@@ -380,7 +447,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de pera
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -388,22 +455,33 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="pera-piedra-cafe"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="pera-piedra-cafe"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
 
                     <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="pera-verde"
-                        >
+                        <div class="producto-card__cuerpo">
                             <div class="producto-card__imagen">
                                 <img
-                                    src="images/pera-verde.jpg"
-                                    alt="Imagen de caja de pera verde"
+                                    src="images/pera verde.png"
+                                    alt="Imagen de pera verde"
                                 >
                             </div>
 
@@ -413,7 +491,7 @@
                                 </h4>
 
                                 <p class="producto-card__tipo">
-                                    Caja de pera
+                                    Caja o cartón
                                 </p>
 
                                 <span class="producto-card__precio">
@@ -421,10 +499,25 @@
                                 </span>
                             </div>
 
-                            <span class="producto-card__accion">
-                                Agregar
-                            </span>
-                        </button>
+                            <div class="producto-card__acciones-dobles">
+                                <button
+                                    class="producto-card__accion"
+                                    type="button"
+                                    data-producto="pera-verde"
+                                    data-presentacion="caja"
+                                >
+                                    + Caja
+                                </button>
+                                <button
+                                    class="producto-card__accion producto-card__accion--carton"
+                                    type="button"
+                                    data-producto="pera-verde"
+                                    data-presentacion="carton"
+                                >
+                                    + Cartón
+                                </button>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </section>
@@ -457,7 +550,7 @@
                 </p>
 
                 <p class="resumen-venta__vacio-texto">
-                    Presiona una caja para comenzar la venta.
+                    Presiona una caja o cartón para comenzar la venta.
                 </p>
             </div>
 
@@ -465,39 +558,7 @@
                 class="resumen-venta__lista"
                 id="lista-venta"
                 hidden
-            >
-                <div class="venta-item">
-                    <div class="venta-item__informacion">
-                        <h3 class="venta-item__nombre">
-                            Producto seleccionado
-                        </h3>
-
-                        <p class="venta-item__detalle">
-                            La información aparecerá aquí.
-                        </p>
-                    </div>
-
-                    <div class="venta-item__controles">
-                        <button
-                            type="button"
-                            class="venta-item__control"
-                            aria-label="Disminuir cantidad"
-                        >
-                            -
-                        </button>
-
-                        <span class="venta-item__cantidad">0</span>
-
-                        <button
-                            type="button"
-                            class="venta-item__control"
-                            aria-label="Aumentar cantidad"
-                        >
-                            +
-                        </button>
-                    </div>
-                </div>
-            </div>
+            ></div>
 
             <div class="resumen-venta__totales">
                 <div class="total-linea">
