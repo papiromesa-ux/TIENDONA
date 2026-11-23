@@ -38,67 +38,109 @@ document.addEventListener("DOMContentLoaded", () => {
     const catalogoProductos = {
         "manzana-verde": {
             nombre: "Manzana verde",
-            tipo: "Caja de manzana",
-            precio: null
+            categoria: "manzana",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "manzana-california": {
             nombre: "Manzana California",
-            tipo: "Caja de manzana",
-            precio: null
+            categoria: "manzana",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "manzana-amarilla": {
             nombre: "Manzana amarilla",
-            tipo: "Caja de manzana",
-            precio: null
+            categoria: "manzana",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "manzana-gala": {
             nombre: "Manzana Gala",
-            tipo: "Caja de manzana",
-            precio: null
+            categoria: "manzana",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "manzana-pink-lady": {
             nombre: "Manzana Pink Lady",
-            tipo: "Caja de manzana",
-            precio: null
+            categoria: "manzana",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "uva-verde": {
             nombre: "Uva verde",
-            tipo: "Caja de uva",
-            precio: null
+            categoria: "uva",
+            permiteCarton: false,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "uva-roja": {
             nombre: "Uva roja",
-            tipo: "Caja de uva",
-            precio: null
+            categoria: "uva",
+            permiteCarton: false,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "pera-forell": {
             nombre: "Pera Forell",
-            tipo: "Caja de pera",
-            precio: null
+            categoria: "pera",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "pera-piedra-cafe": {
             nombre: "Pera piedra café",
-            tipo: "Caja de pera",
-            precio: null
+            categoria: "pera",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         },
 
         "pera-verde": {
             nombre: "Pera verde",
-            tipo: "Caja de pera",
-            precio: null
+            categoria: "pera",
+            permiteCarton: true,
+            precioCaja: null,
+            precioCarton: null
         }
     };
 
     function obtenerProducto(idProducto) {
         return catalogoProductos[idProducto] || null;
+    }
+
+    function obtenerClaveVenta(idProducto, presentacion) {
+        return `${idProducto}__${presentacion}`;
+    }
+
+    function interpretarClaveVenta(clave) {
+        const [idProducto, presentacion] = clave.split("__");
+        return { idProducto, presentacion };
+    }
+
+    function obtenerEtiquetaPresentacion(producto, presentacion) {
+        if (presentacion === "carton") {
+            return `Cartón de ${producto.categoria}`;
+        }
+        return `Caja de ${producto.categoria}`;
+    }
+
+    function obtenerPrecioItem(producto, presentacion) {
+        return presentacion === "carton"
+            ? producto.precioCarton
+            : producto.precioCaja;
     }
 
     function obtenerCantidadTotal() {
@@ -111,35 +153,42 @@ document.addEventListener("DOMContentLoaded", () => {
         return total;
     }
 
-    function agregarProducto(idProducto) {
+    function agregarProducto(idProducto, presentacion = "caja") {
         const producto = obtenerProducto(idProducto);
 
         if (!producto) {
             return;
         }
 
-        const cantidadActual = estadoVenta.get(idProducto) || 0;
+        if (presentacion === "carton" && !producto.permiteCarton) {
+            return;
+        }
+
+        const clave = obtenerClaveVenta(idProducto, presentacion);
+        const cantidadActual = estadoVenta.get(clave) || 0;
 
         estadoVenta.set(
-            idProducto,
+            clave,
             cantidadActual + 1
         );
 
         actualizarResumen();
     }
 
-    function aumentarProducto(idProducto) {
-        agregarProducto(idProducto);
+    function aumentarItem(clave) {
+        const cantidadActual = estadoVenta.get(clave) || 0;
+        estadoVenta.set(clave, cantidadActual + 1);
+        actualizarResumen();
     }
 
-    function disminuirProducto(idProducto) {
-        const cantidadActual = estadoVenta.get(idProducto) || 0;
+    function disminuirItem(clave) {
+        const cantidadActual = estadoVenta.get(clave) || 0;
 
         if (cantidadActual <= 1) {
-            estadoVenta.delete(idProducto);
+            estadoVenta.delete(clave);
         } else {
             estadoVenta.set(
-                idProducto,
+                clave,
                 cantidadActual - 1
             );
         }
@@ -147,13 +196,15 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarResumen();
     }
 
-    function crearElementoVenta(idProducto, cantidad) {
+    function crearElementoVenta(clave, cantidad) {
+        const { idProducto, presentacion } = interpretarClaveVenta(clave);
         const producto = obtenerProducto(idProducto);
 
         if (!producto) {
             return null;
         }
 
+        const detallePresentacion = obtenerEtiquetaPresentacion(producto, presentacion);
         const elemento = document.createElement("div");
 
         elemento.className = "venta-item";
@@ -165,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </h3>
 
                 <p class="venta-item__detalle">
-                    ${producto.tipo}
+                    ${detallePresentacion}
                 </p>
             </div>
 
@@ -174,8 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     type="button"
                     class="venta-item__control"
                     data-accion="disminuir"
-                    data-producto="${idProducto}"
-                    aria-label="Disminuir cantidad de ${producto.nombre}"
+                    data-clave="${clave}"
+                    aria-label="Disminuir cantidad de ${producto.nombre} (${detallePresentacion})"
                 >
                     -
                 </button>
@@ -188,8 +239,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     type="button"
                     class="venta-item__control"
                     data-accion="aumentar"
-                    data-producto="${idProducto}"
-                    aria-label="Aumentar cantidad de ${producto.nombre}"
+                    data-clave="${clave}"
+                    aria-label="Aumentar cantidad de ${producto.nombre} (${detallePresentacion})"
                 >
                     +
                 </button>
@@ -202,9 +253,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderizarListaVenta() {
         contenedorLista.innerHTML = "";
 
-        estadoVenta.forEach((cantidad, idProducto) => {
+        estadoVenta.forEach((cantidad, clave) => {
             const elementoVenta = crearElementoVenta(
-                idProducto,
+                clave,
                 cantidad
             );
 
@@ -234,10 +285,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function actualizarTotalVisual() {
         const hayPrecios = Array.from(
             estadoVenta.keys()
-        ).some((idProducto) => {
+        ).some((clave) => {
+            const { idProducto, presentacion } = interpretarClaveVenta(clave);
             const producto = obtenerProducto(idProducto);
 
-            return producto && producto.precio !== null;
+            return producto && obtenerPrecioItem(producto, presentacion) !== null;
         });
 
         if (!hayPrecios) {
@@ -248,15 +300,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let total = 0;
         let todosTienenPrecio = true;
 
-        estadoVenta.forEach((cantidad, idProducto) => {
+        estadoVenta.forEach((cantidad, clave) => {
+            const { idProducto, presentacion } = interpretarClaveVenta(clave);
             const producto = obtenerProducto(idProducto);
+            const precio = producto ? obtenerPrecioItem(producto, presentacion) : null;
 
-            if (!producto || producto.precio === null) {
+            if (!producto || precio === null) {
                 todosTienenPrecio = false;
                 return;
             }
 
-            total += producto.precio * cantidad;
+            total += precio * cantidad;
         });
 
         if (!todosTienenPrecio) {
@@ -309,29 +363,30 @@ document.addEventListener("DOMContentLoaded", () => {
     botonesProducto.forEach((boton) => {
         boton.addEventListener("click", () => {
             const idProducto = boton.dataset.producto;
+            const presentacion = boton.dataset.presentacion || "caja";
 
-            agregarProducto(idProducto);
+            agregarProducto(idProducto, presentacion);
         });
     });
 
     contenedorLista.addEventListener("click", (evento) => {
         const boton = evento.target.closest(
-            "[data-accion][data-producto]"
+            "[data-accion][data-clave]"
         );
 
         if (!boton) {
             return;
         }
 
-        const idProducto = boton.dataset.producto;
+        const clave = boton.dataset.clave;
         const accion = boton.dataset.accion;
 
         if (accion === "aumentar") {
-            aumentarProducto(idProducto);
+            aumentarItem(clave);
         }
 
         if (accion === "disminuir") {
-            disminuirProducto(idProducto);
+            disminuirItem(clave);
         }
     });
 
