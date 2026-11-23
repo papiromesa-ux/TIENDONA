@@ -6,10 +6,10 @@
 
     <meta
         name="description"
-        content="Calculadora operativa de venta para cajas, cartones y libras de fruta"
+        content="Calculadora de pedidos y editor de catálogo para frutas"
     >
 
-    <title>Calculadora de cajas de fruta</title>
+    <title>Calculadora de frutas · Pedido y Edición</title>
 
     <link rel="stylesheet" href="tilin.css">
 </head>
@@ -21,266 +21,149 @@
                 <div>
                     <p class="encabezado__etiqueta">Operación de venta · Liquid Glass</p>
                     <h1 class="encabezado__titulo">
-                        Calculadora de cajas de fruta
+                        Calculadora de frutas
                     </h1>
                     <p class="encabezado__descripcion">
-                        Precios, calibres, disponibilidad y notas editables al instante.
+                        Arma el pedido de forma rápida o entra a Edición para cambiar precios, calibres e información.
                     </p>
                 </div>
 
-                <div class="encabezado__controles">
+                <nav class="pestanas-principales" aria-label="Secciones principales">
                     <button
                         type="button"
-                        class="glass-btn glass-btn--claro"
-                        id="btn-modo-edicion"
-                        aria-pressed="false"
+                        class="pestana-btn is-activa"
+                        id="tab-pedido"
                     >
-                        Editar catálogo
+                        Hacer pedido
                     </button>
                     <button
                         type="button"
-                        class="glass-btn glass-btn--suave"
-                        id="btn-nota-general"
+                        class="pestana-btn"
+                        id="tab-edicion"
                     >
-                        Nota de venta
+                        Editar productos
                     </button>
-                </div>
+                </nav>
             </div>
         </div>
     </header>
 
     <main class="contenido-principal">
-        <section
-            class="seccion-productos"
-            aria-labelledby="titulo-productos"
-        >
-            <div class="seccion__encabezado">
-                <div>
-                    <p class="seccion__etiqueta">Catálogo operativo</p>
-                    <h2 id="titulo-productos" class="seccion__titulo">
-                        Frutas disponibles
-                    </h2>
+        <!-- SECCIÓN 1: HACER PEDIDO (LIMPIA, SIN CONTROLES DE EDICIÓN) -->
+        <section id="vista-pedido" class="vista-activa" aria-label="Hacer pedido">
+            <div class="layout-pedido">
+                <div class="catalogo-pedido">
+                    <div class="seccion__encabezado">
+                        <div>
+                            <p class="seccion__etiqueta">Pedido</p>
+                            <h2 class="seccion__titulo">Seleccionar frutas</h2>
+                        </div>
+                        <p class="seccion__nota">
+                            Toca una fruta para elegir calibre y agregar al pedido.
+                        </p>
+                    </div>
+
+                    <div id="contenedor-categorias-pedido"></div>
                 </div>
 
-                <p class="seccion__nota">
-                    Toca un producto para elegir presentación y calibre, o edita sus datos.
-                </p>
+                <aside class="resumen-venta glass-panel" aria-labelledby="titulo-resumen">
+                    <div class="resumen-venta__encabezado">
+                        <div>
+                            <p class="resumen-venta__etiqueta">Cuenta / Pedido</p>
+                            <h2 id="titulo-resumen" class="resumen-venta__titulo">Detalle del pedido</h2>
+                        </div>
+                        <span class="resumen-venta__cantidad" id="badge-cantidad-pedido">0 items</span>
+                    </div>
+
+                    <div class="resumen-venta__vacio" id="resumen-vacio">
+                        <p class="resumen-venta__vacio-titulo">Pedido vacío</p>
+                        <p class="resumen-venta__vacio-texto">
+                            Selecciona una fruta para comenzar el pedido.
+                        </p>
+                    </div>
+
+                    <div class="resumen-venta__lista" id="lista-venta" hidden></div>
+
+                    <div class="resumen-venta__totales">
+                        <div class="total-linea">
+                            <span>Cantidad total</span>
+                            <strong id="cantidad-total">0</strong>
+                        </div>
+                        <div class="total-linea total-linea--principal">
+                            <span>Total del pedido</span>
+                            <strong id="total-venta">Precio pendiente</strong>
+                        </div>
+                    </div>
+
+                    <div class="resumen-venta__acciones">
+                        <button type="button" class="boton boton--secundario" id="limpiar-venta">
+                            Limpiar pedido
+                        </button>
+                        <button type="button" class="boton boton--principal" id="finalizar-venta">
+                            Generar pedido / cuenta
+                        </button>
+                    </div>
+                </aside>
             </div>
-
-            <!-- MANZANAS -->
-            <section class="categoria" aria-labelledby="titulo-manzanas">
-                <div class="categoria__encabezado">
-                    <h3 id="titulo-manzanas" class="categoria__titulo">
-                        Manzanas · Caja o cartón
-                    </h3>
-                    <span class="categoria__contador">5 variedades</span>
-                </div>
-                <div class="productos-grid" id="grid-manzanas"></div>
-            </section>
-
-            <!-- UVAS -->
-            <section class="categoria" aria-labelledby="titulo-uvas">
-                <div class="categoria__encabezado">
-                    <h3 id="titulo-uvas" class="categoria__titulo">
-                        Uvas · Caja o libra
-                    </h3>
-                    <span class="categoria__contador">2 variedades</span>
-                </div>
-                <div class="productos-grid" id="grid-uvas"></div>
-            </section>
-
-            <!-- PERAS -->
-            <section class="categoria" aria-labelledby="titulo-peras">
-                <div class="categoria__encabezado">
-                    <h3 id="titulo-peras" class="categoria__titulo">
-                        Peras · Caja o cartón
-                    </h3>
-                    <span class="categoria__contador">3 variedades</span>
-                </div>
-                <div class="productos-grid" id="grid-peras"></div>
-            </section>
         </section>
 
-        <!-- RESUMEN DE VENTA -->
-        <aside class="resumen-venta glass-panel" aria-labelledby="titulo-resumen">
-            <div class="resumen-venta__encabezado">
+        <!-- SECCIÓN 2: LUGAR DE EDICIÓN (TODO LO DE EDITAR AQUÍ) -->
+        <section id="vista-edicion" class="vista-oculta" hidden aria-label="Lugar de edición">
+            <div class="seccion__encabezado">
                 <div>
-                    <p class="resumen-venta__etiqueta">Venta actual</p>
-                    <h2 id="titulo-resumen" class="resumen-venta__titulo">Resumen</h2>
+                    <p class="seccion__etiqueta">Lugar de edición</p>
+                    <h2 class="seccion__titulo">Editar precios, calibres e información</h2>
                 </div>
-                <span class="resumen-venta__cantidad">0 items</span>
-            </div>
-
-            <div class="nota-venta-caja" id="caja-nota-general" hidden>
-                <div class="nota-venta-caja__cabecera">
-                    <span>Nota general de venta</span>
-                    <button type="button" class="link-accion" id="editar-nota-general">Editar</button>
-                </div>
-                <p class="nota-venta-caja__texto" id="texto-nota-general"></p>
-            </div>
-
-            <div class="resumen-venta__vacio" id="resumen-vacio">
-                <p class="resumen-venta__vacio-titulo">Aún no hay productos</p>
-                <p class="resumen-venta__vacio-texto">
-                    Selecciona una fruta para elegir presentación y calibre.
+                <p class="seccion__nota">
+                    Todos los cambios se guardan automáticamente en este dispositivo.
                 </p>
             </div>
 
-            <div class="resumen-venta__lista" id="lista-venta" hidden></div>
-
-            <div class="resumen-venta__totales">
-                <div class="total-linea">
-                    <span>Unidades / libras</span>
-                    <strong id="cantidad-total">0</strong>
-                </div>
-                <div class="total-linea total-linea--principal">
-                    <span>Total</span>
-                    <strong id="total-venta">Precio pendiente</strong>
-                </div>
-            </div>
-
-            <div class="resumen-venta__acciones">
-                <button type="button" class="boton boton--secundario" id="limpiar-venta">
-                    Limpiar venta
-                </button>
-                <button type="button" class="boton boton--principal" id="finalizar-venta">
-                    Finalizar venta
-                </button>
-            </div>
-        </aside>
+            <div class="lista-edicion" id="contenedor-edicion-productos"></div>
+        </section>
     </main>
 
-    <!-- MODAL PARA ELEGIR PRESENTACIÓN Y CALIBRE AL TOCAR UNA FRUTA -->
-    <div class="modal-backdrop" id="modal-seleccion" hidden>
-        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-sel-titulo">
+    <!-- MODAL PARA AGREGAR AL PEDIDO (PRESENTACIÓN, CALIBRE Y CANTIDADES ESPECÍFICAS) -->
+    <div class="modal-backdrop" id="modal-pedido" hidden>
+        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-ped-titulo">
             <div class="modal-card__header">
                 <div>
-                    <p class="modal-card__etiqueta" id="modal-sel-sub">Seleccionar detalle</p>
-                    <h3 class="modal-card__titulo" id="modal-sel-titulo">Fruta</h3>
+                    <p class="modal-card__etiqueta" id="modal-ped-sub">Agregar al pedido</p>
+                    <h3 class="modal-card__titulo" id="modal-ped-titulo">Producto</h3>
                 </div>
-                <button type="button" class="btn-cerrar" id="cerrar-modal-sel" aria-label="Cerrar">✕</button>
+                <button type="button" class="btn-cerrar" id="cerrar-modal-ped" aria-label="Cerrar">✕</button>
             </div>
 
-            <div class="modal-card__body">
-                <div class="campo-grupo">
-                    <label class="campo-label">Presentación</label>
-                    <div class="opciones-presentacion" id="opciones-presentacion"></div>
-                </div>
-
-                <div class="campo-grupo">
-                    <div class="campo-fila-arriba">
-                        <label class="campo-label">Calibre</label>
-                        <button type="button" class="link-accion" id="btn-toggle-nuevo-calibre">
-                            + Agregar número de calibre
-                        </button>
-                    </div>
-
-                    <div class="calibres-lista" id="lista-calibres-rapidos"></div>
-
-                    <div class="nuevo-calibre-box" id="box-nuevo-calibre" hidden>
-                        <input
-                            type="text"
-                            class="campo-input"
-                            id="input-nuevo-calibre"
-                            placeholder="Ej: 150, 125, Grande..."
-                        >
-                        <button type="button" class="boton boton--principal boton--sm" id="btn-guardar-calibre">
-                            Guardar calibre
-                        </button>
-                    </div>
-
-                    <input
-                        type="text"
-                        class="campo-input mt-8"
-                        id="input-calibre-activo"
-                        placeholder="Calibre seleccionado o personalizado (ej: 150)"
-                    >
-                </div>
-
-                <div class="campo-grupo">
-                    <label class="campo-label" for="input-nota-item">Nota para este producto (opcional)</label>
-                    <input
-                        type="text"
-                        class="campo-input"
-                        id="input-nota-item"
-                        placeholder="Ej: Madura para hoy, entregar primero..."
-                    >
-                </div>
-            </div>
+            <div class="modal-card__body" id="modal-ped-cuerpo"></div>
 
             <div class="modal-card__footer">
-                <button type="button" class="boton boton--secundario" id="cancelar-modal-sel">Cancelar</button>
-                <button type="button" class="boton boton--principal" id="confirmar-agregar-item">
-                    Agregar a la venta
+                <button type="button" class="boton boton--secundario" id="cancelar-modal-ped">Cancelar</button>
+                <button type="button" class="boton boton--principal" id="confirmar-agregar-pedido">
+                    Agregar al pedido
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL PARA EDITAR PRECIOS, INFORMACIÓN, CALIBRES Y DISPONIBILIDAD -->
-    <div class="modal-backdrop" id="modal-edicion" hidden>
-        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-ed-titulo">
+    <!-- MODAL DE RESUMEN / CUENTA GENERADA -->
+    <div class="modal-backdrop" id="modal-cuenta" hidden>
+        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-cta-titulo">
             <div class="modal-card__header">
                 <div>
-                    <p class="modal-card__etiqueta">Edición rápida</p>
-                    <h3 class="modal-card__titulo" id="modal-ed-titulo">Editar producto</h3>
+                    <p class="modal-card__etiqueta">Cuenta / Pedido</p>
+                    <h3 class="modal-card__titulo" id="modal-cta-titulo">Resumen de pedido</h3>
                 </div>
-                <button type="button" class="btn-cerrar" id="cerrar-modal-ed" aria-label="Cerrar">✕</button>
+                <button type="button" class="btn-cerrar" id="cerrar-modal-cta" aria-label="Cerrar">✕</button>
             </div>
-
-            <div class="modal-card__body">
-                <div class="campo-grupo">
-                    <label class="switch-fila">
-                        <input type="checkbox" id="ed-disponible">
-                        <span>Producto disponible para la venta</span>
-                    </label>
-                    <p class="campo-ayuda">Si lo desmarcas, aparecerá como <strong>No disponible</strong>.</p>
-                </div>
-
-                <div class="campo-grupo">
-                    <label class="campo-label" for="ed-info">Información de la fruta / caja</label>
-                    <input
-                        type="text"
-                        class="campo-input"
-                        id="ed-info"
-                        placeholder="Ej: Caja de 40 lb · Seleccione calibre"
-                    >
-                </div>
-
-                <div class="grid-precios" id="ed-precios-grid"></div>
-
-                <div class="campo-grupo">
-                    <label class="campo-label" for="ed-calibres">Calibres disponibles (separados por coma)</label>
-                    <input
-                        type="text"
-                        class="campo-input"
-                        id="ed-calibres"
-                        placeholder="Ej: 150, 138, 125"
-                    >
-                </div>
-
-                <div class="campo-grupo">
-                    <label class="campo-label" for="ed-nota">Nota guardada del producto</label>
-                    <input
-                        type="text"
-                        class="campo-input"
-                        id="ed-nota"
-                        placeholder="Nota interna o recordatorio..."
-                    >
-                </div>
-            </div>
-
+            <div class="modal-card__body" id="modal-cta-cuerpo"></div>
             <div class="modal-card__footer">
-                <button type="button" class="boton boton--secundario" id="cancelar-modal-ed">Cancelar</button>
-                <button type="button" class="boton boton--principal" id="guardar-edicion-producto">
-                    Guardar cambios
-                </button>
+                <button type="button" class="boton boton--principal" id="aceptar-modal-cta">Listo</button>
             </div>
         </div>
     </div>
 
     <footer class="pie-pagina">
-        <p>Calculadora de cajas de fruta · Edición en tiempo real</p>
+        <p>Calculadora de frutas · Pedido y Edición</p>
     </footer>
 
     <script src="cerebro.js" defer></script>
