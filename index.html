@@ -6,7 +6,7 @@
 
     <meta
         name="description"
-        content="Prototipo de calculadora para cajas y cartones de frutas"
+        content="Calculadora operativa de venta para cajas, cartones y libras de fruta"
     >
 
     <title>Calculadora de cajas de fruta</title>
@@ -17,15 +17,35 @@
 <body>
     <header class="encabezado">
         <div class="encabezado__contenido">
-            <p class="encabezado__etiqueta">Prototipo de venta</p>
+            <div class="encabezado__fila">
+                <div>
+                    <p class="encabezado__etiqueta">Operación de venta · Liquid Glass</p>
+                    <h1 class="encabezado__titulo">
+                        Calculadora de cajas de fruta
+                    </h1>
+                    <p class="encabezado__descripcion">
+                        Precios, calibres, disponibilidad y notas editables al instante.
+                    </p>
+                </div>
 
-            <h1 class="encabezado__titulo">
-                Calculadora de cajas de fruta
-            </h1>
-
-            <p class="encabezado__descripcion">
-                Selecciona una caja o cartón para agregarlo al resumen de la venta.
-            </p>
+                <div class="encabezado__controles">
+                    <button
+                        type="button"
+                        class="glass-btn glass-btn--claro"
+                        id="btn-modo-edicion"
+                        aria-pressed="false"
+                    >
+                        Editar catálogo
+                    </button>
+                    <button
+                        type="button"
+                        class="glass-btn glass-btn--suave"
+                        id="btn-nota-general"
+                    >
+                        Nota de venta
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -36,536 +56,83 @@
         >
             <div class="seccion__encabezado">
                 <div>
-                    <p class="seccion__etiqueta">Catálogo</p>
-
+                    <p class="seccion__etiqueta">Catálogo operativo</p>
                     <h2 id="titulo-productos" class="seccion__titulo">
-                        Productos disponibles
+                        Frutas disponibles
                     </h2>
                 </div>
 
                 <p class="seccion__nota">
-                    Los precios se agregarán posteriormente.
+                    Toca un producto para elegir presentación y calibre, o edita sus datos.
                 </p>
             </div>
 
-            <!-- MANZANAS (Caja y Cartón) -->
-            <section
-                class="categoria"
-                aria-labelledby="titulo-manzanas"
-            >
+            <!-- MANZANAS -->
+            <section class="categoria" aria-labelledby="titulo-manzanas">
                 <div class="categoria__encabezado">
                     <h3 id="titulo-manzanas" class="categoria__titulo">
-                        Manzanas (Caja o cartón)
+                        Manzanas · Caja o cartón
                     </h3>
-
-                    <span class="categoria__contador">
-                        5 productos
-                    </span>
+                    <span class="categoria__contador">5 variedades</span>
                 </div>
-
-                <div class="productos-grid">
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/manzana verde.png"
-                                    alt="Imagen de manzana verde"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Manzana verde
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="manzana-verde"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="manzana-verde"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/manzana california.png"
-                                    alt="Imagen de manzana California"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Manzana California
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="manzana-california"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="manzana-california"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/manzana amarilla.png"
-                                    alt="Imagen de manzana amarilla"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Manzana amarilla
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="manzana-amarilla"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="manzana-amarilla"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/manzana gala.png"
-                                    alt="Imagen de manzana Gala"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Manzana Gala
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="manzana-gala"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="manzana-gala"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/manzana pink lady.png"
-                                    alt="Imagen de manzana Pink Lady"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Manzana Pink Lady
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="manzana-pink-lady"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="manzana-pink-lady"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                <div class="productos-grid" id="grid-manzanas"></div>
             </section>
 
-            <!-- UVAS (Solo Caja) -->
-            <section
-                class="categoria"
-                aria-labelledby="titulo-uvas"
-            >
+            <!-- UVAS -->
+            <section class="categoria" aria-labelledby="titulo-uvas">
                 <div class="categoria__encabezado">
                     <h3 id="titulo-uvas" class="categoria__titulo">
-                        Cajas de uva
+                        Uvas · Caja o libra
                     </h3>
-
-                    <span class="categoria__contador">
-                        2 productos
-                    </span>
+                    <span class="categoria__contador">2 variedades</span>
                 </div>
-
-                <div class="productos-grid">
-                    <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="uva-verde"
-                            data-presentacion="caja"
-                        >
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/uva verde.png"
-                                    alt="Imagen de uva verde"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Uva verde
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Solo caja de uva
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <span class="producto-card__accion">
-                                + Agregar caja
-                            </span>
-                        </button>
-                    </article>
-
-                    <article class="producto-card">
-                        <button
-                            class="producto-card__boton"
-                            type="button"
-                            data-producto="uva-roja"
-                            data-presentacion="caja"
-                        >
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/uva roja.png"
-                                    alt="Imagen de uva roja"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Uva roja
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Solo caja de uva
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <span class="producto-card__accion">
-                                + Agregar caja
-                            </span>
-                        </button>
-                    </article>
-                </div>
+                <div class="productos-grid" id="grid-uvas"></div>
             </section>
 
-            <!-- PERAS (Caja y Cartón) -->
-            <section
-                class="categoria"
-                aria-labelledby="titulo-peras"
-            >
+            <!-- PERAS -->
+            <section class="categoria" aria-labelledby="titulo-peras">
                 <div class="categoria__encabezado">
                     <h3 id="titulo-peras" class="categoria__titulo">
-                        Peras (Caja o cartón)
+                        Peras · Caja o cartón
                     </h3>
-
-                    <span class="categoria__contador">
-                        3 productos
-                    </span>
+                    <span class="categoria__contador">3 variedades</span>
                 </div>
-
-                <div class="productos-grid">
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/pera forell.png"
-                                    alt="Imagen de pera Forell"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Pera Forell
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="pera-forell"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="pera-forell"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/pera piedra cafe.png"
-                                    alt="Imagen de pera piedra café"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Pera piedra café
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="pera-piedra-cafe"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="pera-piedra-cafe"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="producto-card">
-                        <div class="producto-card__cuerpo">
-                            <div class="producto-card__imagen">
-                                <img
-                                    src="images/pera verde.png"
-                                    alt="Imagen de pera verde"
-                                >
-                            </div>
-
-                            <div class="producto-card__informacion">
-                                <h4 class="producto-card__nombre">
-                                    Pera verde
-                                </h4>
-
-                                <p class="producto-card__tipo">
-                                    Caja o cartón
-                                </p>
-
-                                <span class="producto-card__precio">
-                                    Precio pendiente
-                                </span>
-                            </div>
-
-                            <div class="producto-card__acciones-dobles">
-                                <button
-                                    class="producto-card__accion"
-                                    type="button"
-                                    data-producto="pera-verde"
-                                    data-presentacion="caja"
-                                >
-                                    + Caja
-                                </button>
-                                <button
-                                    class="producto-card__accion producto-card__accion--carton"
-                                    type="button"
-                                    data-producto="pera-verde"
-                                    data-presentacion="carton"
-                                >
-                                    + Cartón
-                                </button>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                <div class="productos-grid" id="grid-peras"></div>
             </section>
         </section>
 
-        <aside
-            class="resumen-venta"
-            aria-labelledby="titulo-resumen"
-        >
+        <!-- RESUMEN DE VENTA -->
+        <aside class="resumen-venta glass-panel" aria-labelledby="titulo-resumen">
             <div class="resumen-venta__encabezado">
                 <div>
                     <p class="resumen-venta__etiqueta">Venta actual</p>
-
-                    <h2 id="titulo-resumen" class="resumen-venta__titulo">
-                        Resumen
-                    </h2>
+                    <h2 id="titulo-resumen" class="resumen-venta__titulo">Resumen</h2>
                 </div>
-
-                <span class="resumen-venta__cantidad">
-                    0 productos
-                </span>
+                <span class="resumen-venta__cantidad">0 items</span>
             </div>
 
-            <div
-                class="resumen-venta__vacio"
-                id="resumen-vacio"
-            >
-                <p class="resumen-venta__vacio-titulo">
-                    Aún no hay productos
-                </p>
+            <div class="nota-venta-caja" id="caja-nota-general" hidden>
+                <div class="nota-venta-caja__cabecera">
+                    <span>Nota general de venta</span>
+                    <button type="button" class="link-accion" id="editar-nota-general">Editar</button>
+                </div>
+                <p class="nota-venta-caja__texto" id="texto-nota-general"></p>
+            </div>
 
+            <div class="resumen-venta__vacio" id="resumen-vacio">
+                <p class="resumen-venta__vacio-titulo">Aún no hay productos</p>
                 <p class="resumen-venta__vacio-texto">
-                    Presiona una caja o cartón para comenzar la venta.
+                    Selecciona una fruta para elegir presentación y calibre.
                 </p>
             </div>
 
-            <div
-                class="resumen-venta__lista"
-                id="lista-venta"
-                hidden
-            ></div>
+            <div class="resumen-venta__lista" id="lista-venta" hidden></div>
 
             <div class="resumen-venta__totales">
                 <div class="total-linea">
-                    <span>Productos</span>
+                    <span>Unidades / libras</span>
                     <strong id="cantidad-total">0</strong>
                 </div>
-
                 <div class="total-linea total-linea--principal">
                     <span>Total</span>
                     <strong id="total-venta">Precio pendiente</strong>
@@ -573,29 +140,147 @@
             </div>
 
             <div class="resumen-venta__acciones">
-                <button
-                    type="button"
-                    class="boton boton--secundario"
-                    id="limpiar-venta"
-                >
+                <button type="button" class="boton boton--secundario" id="limpiar-venta">
                     Limpiar venta
                 </button>
-
-                <button
-                    type="button"
-                    class="boton boton--principal"
-                    id="finalizar-venta"
-                >
+                <button type="button" class="boton boton--principal" id="finalizar-venta">
                     Finalizar venta
                 </button>
             </div>
         </aside>
     </main>
 
+    <!-- MODAL PARA ELEGIR PRESENTACIÓN Y CALIBRE AL TOCAR UNA FRUTA -->
+    <div class="modal-backdrop" id="modal-seleccion" hidden>
+        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-sel-titulo">
+            <div class="modal-card__header">
+                <div>
+                    <p class="modal-card__etiqueta" id="modal-sel-sub">Seleccionar detalle</p>
+                    <h3 class="modal-card__titulo" id="modal-sel-titulo">Fruta</h3>
+                </div>
+                <button type="button" class="btn-cerrar" id="cerrar-modal-sel" aria-label="Cerrar">✕</button>
+            </div>
+
+            <div class="modal-card__body">
+                <div class="campo-grupo">
+                    <label class="campo-label">Presentación</label>
+                    <div class="opciones-presentacion" id="opciones-presentacion"></div>
+                </div>
+
+                <div class="campo-grupo">
+                    <div class="campo-fila-arriba">
+                        <label class="campo-label">Calibre</label>
+                        <button type="button" class="link-accion" id="btn-toggle-nuevo-calibre">
+                            + Agregar número de calibre
+                        </button>
+                    </div>
+
+                    <div class="calibres-lista" id="lista-calibres-rapidos"></div>
+
+                    <div class="nuevo-calibre-box" id="box-nuevo-calibre" hidden>
+                        <input
+                            type="text"
+                            class="campo-input"
+                            id="input-nuevo-calibre"
+                            placeholder="Ej: 150, 125, Grande..."
+                        >
+                        <button type="button" class="boton boton--principal boton--sm" id="btn-guardar-calibre">
+                            Guardar calibre
+                        </button>
+                    </div>
+
+                    <input
+                        type="text"
+                        class="campo-input mt-8"
+                        id="input-calibre-activo"
+                        placeholder="Calibre seleccionado o personalizado (ej: 150)"
+                    >
+                </div>
+
+                <div class="campo-grupo">
+                    <label class="campo-label" for="input-nota-item">Nota para este producto (opcional)</label>
+                    <input
+                        type="text"
+                        class="campo-input"
+                        id="input-nota-item"
+                        placeholder="Ej: Madura para hoy, entregar primero..."
+                    >
+                </div>
+            </div>
+
+            <div class="modal-card__footer">
+                <button type="button" class="boton boton--secundario" id="cancelar-modal-sel">Cancelar</button>
+                <button type="button" class="boton boton--principal" id="confirmar-agregar-item">
+                    Agregar a la venta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA EDITAR PRECIOS, INFORMACIÓN, CALIBRES Y DISPONIBILIDAD -->
+    <div class="modal-backdrop" id="modal-edicion" hidden>
+        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-ed-titulo">
+            <div class="modal-card__header">
+                <div>
+                    <p class="modal-card__etiqueta">Edición rápida</p>
+                    <h3 class="modal-card__titulo" id="modal-ed-titulo">Editar producto</h3>
+                </div>
+                <button type="button" class="btn-cerrar" id="cerrar-modal-ed" aria-label="Cerrar">✕</button>
+            </div>
+
+            <div class="modal-card__body">
+                <div class="campo-grupo">
+                    <label class="switch-fila">
+                        <input type="checkbox" id="ed-disponible">
+                        <span>Producto disponible para la venta</span>
+                    </label>
+                    <p class="campo-ayuda">Si lo desmarcas, aparecerá como <strong>No disponible</strong>.</p>
+                </div>
+
+                <div class="campo-grupo">
+                    <label class="campo-label" for="ed-info">Información de la fruta / caja</label>
+                    <input
+                        type="text"
+                        class="campo-input"
+                        id="ed-info"
+                        placeholder="Ej: Caja de 40 lb · Seleccione calibre"
+                    >
+                </div>
+
+                <div class="grid-precios" id="ed-precios-grid"></div>
+
+                <div class="campo-grupo">
+                    <label class="campo-label" for="ed-calibres">Calibres disponibles (separados por coma)</label>
+                    <input
+                        type="text"
+                        class="campo-input"
+                        id="ed-calibres"
+                        placeholder="Ej: 150, 138, 125"
+                    >
+                </div>
+
+                <div class="campo-grupo">
+                    <label class="campo-label" for="ed-nota">Nota guardada del producto</label>
+                    <input
+                        type="text"
+                        class="campo-input"
+                        id="ed-nota"
+                        placeholder="Nota interna o recordatorio..."
+                    >
+                </div>
+            </div>
+
+            <div class="modal-card__footer">
+                <button type="button" class="boton boton--secundario" id="cancelar-modal-ed">Cancelar</button>
+                <button type="button" class="boton boton--principal" id="guardar-edicion-producto">
+                    Guardar cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
     <footer class="pie-pagina">
-        <p>
-            Prototipo de calculadora de cajas de fruta
-        </p>
+        <p>Calculadora de cajas de fruta · Edición en tiempo real</p>
     </footer>
 
     <script src="cerebro.js" defer></script>
