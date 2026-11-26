@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Ilustración de pera piedra café">
+  <defs>
+    <radialGradient id="fondo" cx="50%" cy="42%" r="72%">
+      <stop offset="0" stop-color="#fbf5e9"/>
+      <stop offset="0.66" stop-color="#f1e5ce"/>
+      <stop offset="1" stop-color="#e3d0b1"/>
+    </radialGradient>
+    <radialGradient id="pera" cx="36%" cy="30%" r="82%">
+      <stop offset="0" stop-color="#d8b47d"/>
+      <stop offset="0.4" stop-color="#b98647"/>
+      <stop offset="0.78" stop-color="#8f5c2c"/>
+      <stop offset="1" stop-color="#5e3818"/>
+    </radialGradient>
+    <linearGradient id="hoja" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#417c4d"/>
+      <stop offset="1" stop-color="#1d4a2d"/>
+    </linearGradient>
+    <filter id="sombra" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="28" stdDeviation="28" flood-color="#4a3418" flood-opacity="0.26"/>
+    </filter>
+    <filter id="grano">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+    <clipPath id="cuerpo">
+      <path d="M600 252c-42 0-58 50-54 96-66 44-98 136-78 218 24 106 76 156 132 156s108-50 132-156c20-82-12-174-78-218 4-46-12-96-54-96Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#fondo)"/>
+  <circle cx="600" cy="466" r="306" fill="#fffdf6" opacity="0.5"/>
+  <circle cx="600" cy="466" r="306" fill="none" stroke="#c8b283" stroke-opacity="0.28" stroke-width="2"/>
+  <ellipse cx="600" cy="744" rx="176" ry="26" fill="#8a6a3e" opacity="0.18"/>
+
+  <g filter="url(#sombra)">
+    <path d="M600 262c-6 0-10-4-9-10 4-30 2-52-8-74" fill="none" stroke="#6b4726" stroke-width="14" stroke-linecap="round"/>
+    <path d="M596 214c28-34 74-42 104-32-8 38-40 66-82 66-16 0-24-10-22-34Z" fill="url(#hoja)"/>
+
+    <path d="M600 252c-42 0-58 50-54 96-66 44-98 136-78 218 24 106 76 156 132 156s108-50 132-156c20-82-12-174-78-218 4-46-12-96-54-96Z" fill="url(#pera)"/>
+
+    <g clip-path="url(#cuerpo)">
+      <ellipse cx="512" cy="470" rx="70" ry="150" fill="#f3d9a6" opacity="0.28" transform="rotate(-18 512 470)"/>
+      <ellipse cx="700" cy="560" rx="96" ry="180" fill="#4a2a10" opacity="0.18" transform="rotate(14 700 560)"/>
+      <g fill="#6b3f1c" opacity="0.5">
+        <circle cx="540" cy="382" r="3.4"/><circle cx="568" cy="404" r="2.6"/><circle cx="522" cy="424" r="3"/>
+        <circle cx="590" cy="372" r="2.4"/><circle cx="648" cy="398" r="3.2"/><circle cx="676" cy="430" r="2.6"/>
+        <circle cx="494" cy="474" r="3"/><circle cx="530" cy="502" r="2.4"/><circle cx="572" cy="470" r="3.2"/>
+        <circle cx="620" cy="500" r="2.6"/><circle cx="668" cy="478" r="3"/><circle cx="706" cy="508" r="2.4"/>
+        <circle cx="486" cy="544" r="2.8"/><circle cx="524" cy="574" r="3.2"/><circle cx="566" cy="548" r="2.4"/>
+        <circle cx="610" cy="580" r="3"/><circle cx="654" cy="552" r="2.6"/><circle cx="696" cy="584" r="3.2"/>
+        <circle cx="510" cy="618" r="2.6"/><circle cx="554" cy="642" r="3"/><circle cx="600" cy="616" r="2.4"/>
+        <circle cx="644" cy="644" r="2.8"/><circle cx="686" cy="616" r="2.4"/><circle cx="576" cy="678" r="2.6"/>
+        <circle cx="628" cy="682" r="2.4"/><circle cx="600" cy="700" r="2.8"/>
+      </g>
+    </g>
+
+    <ellipse cx="558" cy="342" rx="26" ry="16" fill="#f7e6c2" opacity="0.4" transform="rotate(-28 558 342)"/>
+    <ellipse cx="520" cy="424" rx="18" ry="34" fill="#f7e6c2" opacity="0.22" transform="rotate(-16 520 424)"/>
+  </g>
+
+  <rect width="1200" height="900" filter="url(#grano)" opacity="0.55"/>
+</svg>

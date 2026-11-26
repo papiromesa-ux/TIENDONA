@@ -1,0 +1,71 @@
+TIENDONA · rediseño completo
+================================
+
+Contenido del paquete
+---------------------
+- index.html      Estructura de la tienda, panel de administración y modales.
+- tilin.css       Sistema visual, animaciones y diseño responsive.
+- cerebro.js      Catálogo, pedido, recibos, comandos y seguridad del panel.
+- imagenes/       Fotos optimizadas y respaldos SVG para las frutas sin foto.
+
+Cómo probarlo
+-------------
+1. Descomprime la carpeta completa.
+2. Ábrela con un servidor local (recomendado):
+       python3 -m http.server 8080
+   y visita http://localhost:8080
+   También puedes subirla directamente a GitHub Pages.
+
+Cómo subirlo a GitHub Pages
+---------------------------
+1. Entra al repositorio TIENDONA en GitHub.
+2. Reemplaza index.html, tilin.css y cerebro.js.
+3. Sube la carpeta imagenes completa (reemplazando las fotos antiguas).
+4. Espera a que GitHub Pages publique los cambios.
+
+Acceso al panel de administración
+---------------------------------
+Hay cuatro formas:
+- Ctrl + K (o Cmd + K) y escribe:  /admin
+- Toca el candado pequeño del pie de página.
+- Escribe la palabra secreta:  tiendona
+- Mantén pulsado el logo TIENDONA durante un segundo.
+
+La primera vez pedirá crear una clave maestra:
+- Mínimo 10 caracteres.
+- Al menos una letra y un número.
+- Se guarda cifrada con PBKDF2-SHA256, sal aleatoria y 250 000 iteraciones.
+- Tras 5 intentos fallidos se bloquea con espera progresiva.
+- La sesión se cierra sola a los 10 minutos de inactividad (máximo 60 minutos).
+
+Importante sobre los cambios
+----------------------------
+El panel guarda el catálogo en el navegador donde lo usas (localStorage).
+Eso permite editar precios, calibres y disponibilidad sin servidor, pero los
+cambios no se publican solos para todos los visitantes.
+
+Para conservar o mover tu catálogo:
+- Usa "Exportar" dentro del panel para descargar un respaldo JSON.
+- Usa "Importar" para restaurarlo en otro navegador o equipo.
+
+Si más adelante quieres que los cambios se vean para todos los visitantes,
+hace falta un backend o un archivo de catálogo publicado. El respaldo JSON
+sirve como base para ese paso.
+
+Precios
+-------
+Los productos empiezan como "Precio a confirmar" para no inventar precios.
+Puedes asignar el precio de cada presentación desde el panel; el catálogo y
+el recibo se actualizan al instante.
+
+Imágenes
+--------
+Las fotos originales pesaban hasta 9 MB. Se optimizaron para que la tienda
+cargue rápido. Las frutas sin foto usan ilustraciones SVG con el mismo estilo
+visual (uvas y peras).
+
+Seguridad
+---------
+La protección es local, pensada para un dispositivo de confianza. No sustituye
+a un sistema de usuarios con servidor. No compartas la clave maestra y exporta
+un respaldo antes de restablecer el catálogo.

@@ -2,169 +2,667 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0f2e20">
+    <meta name="description" content="TIENDONA · Fruta fresca por caja, cartón o libra. Elige tu fruta, ajusta el calibre y arma tu cuenta en segundos.">
+    <meta name="color-scheme" content="light">
+    <link rel="canonical" href="https://papiromesa-ux.github.io/TIENDONA/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="TIENDONA">
+    <meta property="og:title" content="TIENDONA · Fruta fresca, cuenta clara">
+    <meta property="og:description" content="Elige la fruta, el calibre y la presentación. Arma tu pedido en segundos y llévate una cuenta ordenada.">
+    <meta property="og:url" content="https://papiromesa-ux.github.io/TIENDONA/">
+    <meta property="og:image" content="https://papiromesa-ux.github.io/TIENDONA/imagenes/mv.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+    <title>TIENDONA · Fruta fresca, cuenta clara</title>
 
-    <meta
-        name="description"
-        content="Calculadora de pedidos y editor de catálogo para frutas"
-    >
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23123f2b'/%3E%3Cpath d='M32 47c0-10 6-18 17-20-1 12-8 19-17 20Z' fill='%23e9b44c'/%3E%3Cpath d='M32 47c0-8-5-14-13-16 1 10 6 15 13 16Z' fill='%23f7f2e7'/%3E%3C/svg%3E">
 
-    <title>Calculadora de frutas · Pedido y Edición</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="tilin.css">
+    <noscript>
+        <style>
+            .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+        </style>
+    </noscript>
 </head>
 
 <body>
-    <header class="encabezado">
-        <div class="encabezado__contenido">
-            <div class="encabezado__fila">
-                <div>
-                    <p class="encabezado__etiqueta">Operación de venta · Liquid Glass</p>
-                    <h1 class="encabezado__titulo">
-                        Calculadora de frutas
-                    </h1>
-                    <p class="encabezado__descripcion">
-                        Arma el pedido de forma rápida o entra a Edición para cambiar precios, calibres e información.
-                    </p>
-                </div>
+    <div class="grano" aria-hidden="true"></div>
+    <div class="cursor-luz" id="cursor-luz" aria-hidden="true"></div>
+    <div class="progreso" aria-hidden="true"><span id="progreso-barra"></span></div>
 
-                <nav class="pestanas-principales" aria-label="Secciones principales">
-                    <button
-                        type="button"
-                        class="pestana-btn is-activa"
-                        id="tab-pedido"
-                    >
-                        Hacer pedido
-                    </button>
-                    <button
-                        type="button"
-                        class="pestana-btn"
-                        id="tab-edicion"
-                    >
-                        Editar productos
-                    </button>
-                </nav>
+    <!-- ============ CABECERA ============ -->
+    <header class="cabecera" id="cabecera">
+        <div class="cabecera__interior">
+            <a class="marca" href="#inicio" id="marca" aria-label="TIENDONA, ir al inicio">
+                <span class="marca__sello" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <path d="M16 25c0-6.5 4-11.5 10.5-12.8C25.6 20 20.6 24.4 16 25Z" fill="currentColor"/>
+                        <path d="M16 25c0-5-3-8.8-8-10 0 6.2 3.6 9.4 8 10Z" fill="currentColor" opacity=".55"/>
+                    </svg>
+                </span>
+                <span class="marca__texto">
+                    <strong>TIENDONA</strong>
+                    <em>frutería de mercado</em>
+                </span>
+            </a>
+
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="#catalogo" class="nav__link is-activo" data-nav="catalogo">Catálogo</a>
+                <a href="#como-pedir" class="nav__link" data-nav="como-pedir">Cómo pedir</a>
+                <button type="button" class="nav__admin" id="nav-admin" hidden>
+                    <span class="nav__admin-punto"></span> Panel admin
+                </button>
+            </nav>
+
+            <div class="cabecera__acciones">
+                <button type="button" class="btn-comando" id="btn-paleta" aria-label="Abrir comandos (Ctrl o Cmd + K)">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                    <span>Comandos</span>
+                    <kbd>⌘K</kbd>
+                </button>
+
+                <button type="button" class="btn-carrito" id="btn-carrito-cabecera" aria-label="Abrir mi cuenta">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                        <path d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                    <span class="btn-carrito__badge" id="badge-carrito">0</span>
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="contenido-principal">
-        <!-- SECCIÓN 1: HACER PEDIDO (LIMPIA, SIN CONTROLES DE EDICIÓN) -->
-        <section id="vista-pedido" class="vista-activa" aria-label="Hacer pedido">
-            <div class="layout-pedido">
-                <div class="catalogo-pedido">
-                    <div class="seccion__encabezado">
-                        <div>
-                            <p class="seccion__etiqueta">Pedido</p>
-                            <h2 class="seccion__titulo">Seleccionar frutas</h2>
-                        </div>
-                        <p class="seccion__nota">
-                            Toca una fruta para elegir calibre y agregar al pedido.
-                        </p>
+    <!-- ============ TIENDA PÚBLICA ============ -->
+    <main id="vista-publica">
+        <!-- HERO -->
+        <section class="hero" id="inicio">
+            <div class="hero__aurora" aria-hidden="true">
+                <span class="hero__bruma hero__bruma--1"></span>
+                <span class="hero__bruma hero__bruma--2"></span>
+                <span class="hero__bruma hero__bruma--3"></span>
+            </div>
+
+            <div class="hero__interior">
+                <div class="hero__texto">
+                    <p class="eyebrow anim-entrada">
+                        <span class="punto"></span> Temporada · selección del día
+                    </p>
+
+                    <h1 class="hero__titulo">
+                        <span class="linea"><span>Fruta fresca.</span></span>
+                        <span class="linea"><span><em>Cuenta clara.</em></span></span>
+                    </h1>
+
+                    <p class="hero__lead anim-entrada" style="--retraso:.55s">
+                        Elige la fruta, el calibre y la presentación. Arma tu pedido en segundos y
+                        llévate una cuenta ordenada, sin cuentas a medias.
+                    </p>
+
+                    <div class="hero__acciones anim-entrada" style="--retraso:.68s">
+                        <a href="#catalogo" class="btn btn--primario btn--grande">
+                            Armar mi pedido
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <button type="button" class="btn btn--fantasma btn--grande" id="hero-ver-cuenta">
+                            Ver mi cuenta
+                            <span class="punto-conteo" id="hero-conteo">0</span>
+                        </button>
                     </div>
 
-                    <div id="contenedor-categorias-pedido"></div>
+                    <ul class="hero__datos anim-entrada" style="--retraso:.8s">
+                        <li><strong id="dato-productos">10</strong><span>productos</span></li>
+                        <li><strong id="dato-categorias">3</strong><span>categorías</span></li>
+                        <li><strong>Caja · Cartón · Libra</strong><span>presentaciones</span></li>
+                    </ul>
                 </div>
 
-                <aside class="resumen-venta glass-panel" aria-labelledby="titulo-resumen">
-                    <div class="resumen-venta__encabezado">
-                        <div>
-                            <p class="resumen-venta__etiqueta">Cuenta / Pedido</p>
-                            <h2 id="titulo-resumen" class="resumen-venta__titulo">Detalle del pedido</h2>
-                        </div>
-                        <span class="resumen-venta__cantidad" id="badge-cantidad-pedido">0 items</span>
+                <div class="hero__visual" id="hero-visual" aria-hidden="true">
+                    <div class="orbita">
+                        <svg viewBox="0 0 320 320">
+                            <defs>
+                                <path id="orbita-texto" d="M160,160 m-124,0 a124,124 0 1,1 248,0 a124,124 0 1,1 -248,0"/>
+                            </defs>
+                            <text>
+                                <textPath href="#orbita-texto">FRUTA FRESCA · SELECCIÓN DIARIA · FRUTA FRESCA · SELECCIÓN DIARIA ·</textPath>
+                            </text>
+                        </svg>
                     </div>
 
-                    <div class="resumen-venta__vacio" id="resumen-vacio">
-                        <p class="resumen-venta__vacio-titulo">Pedido vacío</p>
-                        <p class="resumen-venta__vacio-texto">
-                            Selecciona una fruta para comenzar el pedido.
-                        </p>
+                    <div class="hero__foto hero__foto--principal">
+                        <img src="imagenes/mv.jpg" alt="" decoding="async">
+                        <span class="hero__foto-pie">Manzana verde <strong>Cal. 113</strong></span>
+                    </div>
+                    <div class="hero__foto hero__foto--pera">
+                        <img src="imagenes/pf.jpg" alt="" decoding="async">
+                    </div>
+                    <div class="hero__foto hero__foto--gala">
+                        <img src="imagenes/mg.jpg" alt="" decoding="async">
                     </div>
 
-                    <div class="resumen-venta__lista" id="lista-venta" hidden></div>
+                    <span class="hero__chip hero__chip--1"><i></i> Recién llegado</span>
+                    <span class="hero__chip hero__chip--2">Precio por caja</span>
+                    <span class="hero__destello"></span>
+                </div>
+            </div>
 
-                    <div class="resumen-venta__totales">
-                        <div class="total-linea">
-                            <span>Cantidad total</span>
-                            <strong id="cantidad-total">0</strong>
-                        </div>
-                        <div class="total-linea total-linea--principal">
-                            <span>Total del pedido</span>
-                            <strong id="total-venta">Precio pendiente</strong>
-                        </div>
-                    </div>
-
-                    <div class="resumen-venta__acciones">
-                        <button type="button" class="boton boton--secundario" id="limpiar-venta">
-                            Limpiar pedido
-                        </button>
-                        <button type="button" class="boton boton--principal" id="finalizar-venta">
-                            Generar pedido / cuenta
-                        </button>
-                    </div>
-                </aside>
+            <div class="hero__scroll" aria-hidden="true">
+                <span class="hero__scroll-linea"></span> Desliza para elegir
             </div>
         </section>
 
-        <!-- SECCIÓN 2: LUGAR DE EDICIÓN (TODO LO DE EDITAR AQUÍ) -->
-        <section id="vista-edicion" class="vista-oculta" hidden aria-label="Lugar de edición">
-            <div class="seccion__encabezado">
-                <div>
-                    <p class="seccion__etiqueta">Lugar de edición</p>
-                    <h2 class="seccion__titulo">Editar precios, calibres e información</h2>
-                </div>
-                <p class="seccion__nota">
-                    Todos los cambios se guardan automáticamente en este dispositivo.
-                </p>
+        <!-- CINTA -->
+        <div class="cinta" aria-hidden="true">
+            <div class="cinta__pista">
+                <span>Manzana</span><i>✳</i><span>Uva</span><i>✳</i><span>Pera</span><i>✳</i><span>Calibre</span><i>✳</i><span>Caja</span><i>✳</i><span>Cartón</span><i>✳</i><span>Libra</span><i>✳</i>
+                <span>Manzana</span><i>✳</i><span>Uva</span><i>✳</i><span>Pera</span><i>✳</i><span>Calibre</span><i>✳</i><span>Caja</span><i>✳</i><span>Cartón</span><i>✳</i><span>Libra</span><i>✳</i>
             </div>
+        </div>
 
-            <div class="lista-edicion" id="contenedor-edicion-productos"></div>
+        <!-- CATÁLOGO -->
+        <section class="catalogo" id="catalogo">
+            <div class="contenedor">
+                <div class="seccion__cabecera">
+                    <div>
+                        <p class="eyebrow reveal"><span class="punto"></span> El catálogo</p>
+                        <h2 class="seccion__titulo reveal">Elige tu fruta.<br><em>Nosotros pesamos.</em></h2>
+                    </div>
+                    <p class="seccion__nota reveal">
+                        Toca una tarjeta para elegir presentación, calibre y cantidad.
+                        Tu cuenta se arma sola, sin hojas de cálculo.
+                    </p>
+                </div>
+
+                <div class="herramientas reveal">
+                    <label class="buscador" for="buscador">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                        <input id="buscador" type="search" placeholder="Buscar manzana, uva, pera…" autocomplete="off" spellcheck="false">
+                        <span class="buscador__atajo">/</span>
+                    </label>
+
+                    <div class="filtros" role="group" aria-label="Filtrar por categoría">
+                        <button type="button" class="filtro is-activo" data-filtro="todo">Todo <span id="filtro-n-todo">10</span></button>
+                        <button type="button" class="filtro" data-filtro="manzana">Manzanas <span id="filtro-n-manzana">5</span></button>
+                        <button type="button" class="filtro" data-filtro="uva">Uvas <span id="filtro-n-uva">2</span></button>
+                        <button type="button" class="filtro" data-filtro="pera">Peras <span id="filtro-n-pera">3</span></button>
+                    </div>
+                </div>
+
+                <div class="grid-productos" id="grid-productos"></div>
+
+                <div class="vacio" id="catalogo-vacio" hidden>
+                    <span class="vacio__icono" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none">
+                            <circle cx="21" cy="21" r="12" stroke="currentColor" stroke-width="2"/>
+                            <path d="m30 30 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    <p>No encontramos esa fruta.</p>
+                    <span>Prueba con otro nombre o mira todas las categorías.</span>
+                    <button type="button" class="btn btn--fantasma btn--sm" id="vacio-limpiar">Ver todo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CÓMO PEDIR -->
+        <section class="pasos" id="como-pedir">
+            <div class="pasos__decoracion" aria-hidden="true">TIENDONA</div>
+            <div class="contenedor pasos__interior">
+                <div class="pasos__cabecera">
+                    <p class="eyebrow eyebrow--claro reveal"><span class="punto"></span> Así de simple</p>
+                    <h2 class="seccion__titulo seccion__titulo--claro reveal">Tres pasos.<br><em>Cero enredos.</em></h2>
+                    <p class="pasos__nota reveal">Sin registros, sin apps y sin letras pequeñas. Solo fruta y una cuenta que se entiende.</p>
+                </div>
+
+                <ol class="pasos__lista">
+                    <li class="paso reveal">
+                        <span class="paso__n">01</span>
+                        <h3>Elige la fruta</h3>
+                        <p>Filtra por categoría o busca por nombre. Cada tarjeta muestra su estado y sus calibres.</p>
+                    </li>
+                    <li class="paso reveal">
+                        <span class="paso__n">02</span>
+                        <h3>Ajusta el detalle</h3>
+                        <p>Selecciona caja, cartón o libra, el calibre exacto y la cantidad. Agrega una nota si hace falta.</p>
+                    </li>
+                    <li class="paso reveal">
+                        <span class="paso__n">03</span>
+                        <h3>Genera tu cuenta</h3>
+                        <p>Revisa el resumen, copia el pedido o imprímelo. Todo queda claro antes de salir.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- CIERRE -->
+        <section class="cierre">
+            <div class="contenedor">
+                <div class="cierre__panel reveal">
+                    <div class="cierre__texto">
+                        <p class="eyebrow eyebrow--claro"><span class="punto"></span> Tu cuenta, lista</p>
+                        <h2>Del catálogo a la cuenta<br><em>en un toque.</em></h2>
+                    </div>
+                    <button type="button" class="btn btn--oro btn--grande" id="cierre-cuenta">
+                        Abrir mi pedido
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <span class="cierre__sello" aria-hidden="true">Fresco</span>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- MODAL PARA AGREGAR AL PEDIDO (PRESENTACIÓN, CALIBRE Y CANTIDADES ESPECÍFICAS) -->
-    <div class="modal-backdrop" id="modal-pedido" hidden>
-        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-ped-titulo">
-            <div class="modal-card__header">
-                <div>
-                    <p class="modal-card__etiqueta" id="modal-ped-sub">Agregar al pedido</p>
-                    <h3 class="modal-card__titulo" id="modal-ped-titulo">Producto</h3>
+    <!-- ============ PANEL ADMIN ============ -->
+    <section class="admin" id="vista-admin" hidden aria-label="Panel de administración">
+        <div class="contenedor">
+            <div class="admin__cabecera">
+                <div class="admin__intro">
+                    <p class="eyebrow"><span class="punto"></span> Modo administrador</p>
+                    <h1>Panel de control</h1>
+                    <p>Catálogo, precios y seguridad. Los cambios se guardan en este dispositivo.</p>
                 </div>
-                <button type="button" class="btn-cerrar" id="cerrar-modal-ped" aria-label="Cerrar">✕</button>
+                <div class="admin__sesion">
+                    <span class="chip-sesion" title="Tiempo restante de sesión">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect x="5" y="10" width="14" height="10" rx="3" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" stroke="currentColor" stroke-width="1.6"/>
+                        </svg>
+                        <b id="sesion-tiempo">10:00</b>
+                    </span>
+                    <button type="button" class="btn btn--fantasma btn--sm" id="btn-bloquear">Bloquear</button>
+                    <button type="button" class="btn btn--primario btn--sm" id="btn-volver">Ver tienda</button>
+                </div>
             </div>
 
-            <div class="modal-card__body" id="modal-ped-cuerpo"></div>
+            <div class="admin__stats" id="admin-stats"></div>
 
-            <div class="modal-card__footer">
-                <button type="button" class="boton boton--secundario" id="cancelar-modal-ped">Cancelar</button>
-                <button type="button" class="boton boton--principal" id="confirmar-agregar-pedido">
-                    Agregar al pedido
+            <div class="admin__barra">
+                <div>
+                    <h2>Catálogo</h2>
+                    <p>Toca un producto para editar precios, calibres y disponibilidad.</p>
+                </div>
+                <div class="admin__acciones">
+                    <button type="button" class="btn btn--fantasma btn--sm" id="btn-exportar">Exportar</button>
+                    <label class="btn btn--fantasma btn--sm" for="input-importar">Importar</label>
+                    <input id="input-importar" type="file" accept="application/json,.json" hidden>
+                    <button type="button" class="btn btn--primario btn--sm" id="btn-nuevo">+ Nuevo producto</button>
+                </div>
+            </div>
+
+            <div class="admin__lista" id="admin-lista"></div>
+
+            <div class="admin__paneles">
+                <section class="panel">
+                    <div class="panel__cabecera">
+                        <span class="panel__icono" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                                <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <h3>Seguridad</h3>
+                            <p>Cambia la clave maestra de este dispositivo.</p>
+                        </div>
+                    </div>
+
+                    <form class="form-clave" id="form-clave" autocomplete="off">
+                        <label class="campo-admin">
+                            <span>Clave actual</span>
+                            <input type="password" id="clave-actual" autocomplete="current-password" maxlength="128" required>
+                        </label>
+                        <label class="campo-admin">
+                            <span>Nueva clave</span>
+                            <input type="password" id="clave-nueva" autocomplete="new-password" maxlength="128" required>
+                        </label>
+                        <label class="campo-admin">
+                            <span>Repite la nueva clave</span>
+                            <input type="password" id="clave-nueva-2" autocomplete="new-password" maxlength="128" required>
+                        </label>
+                        <p class="form-clave__error" id="clave-error" role="alert"></p>
+                        <button type="submit" class="btn btn--primario btn--sm" id="btn-cambiar-clave">Actualizar clave</button>
+                    </form>
+
+                    <p class="panel__meta" id="seguridad-meta"></p>
+                    <p class="panel__nota">
+                        Protección local: la clave se guarda como hash PBKDF2-SHA256 con sal aleatoria.
+                        Para seguridad multiusuario real se necesita un servidor.
+                    </p>
+                </section>
+
+                <section class="panel">
+                    <div class="panel__cabecera">
+                        <span class="panel__icono" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M6 4h12v16l-3-2-3 2-3-2-3 2V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                                <path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <h3>Registro de actividad</h3>
+                            <p>Últimos accesos y cambios en este navegador.</p>
+                        </div>
+                    </div>
+                    <ul class="auditoria" id="auditoria"></ul>
+                </section>
+            </div>
+
+            <section class="peligro">
+                <div>
+                    <h3>Zona de riesgo</h3>
+                    <p>Restablece el catálogo a los valores de fábrica. No borra la clave maestra.</p>
+                </div>
+                <button type="button" class="btn btn--peligro btn--sm" id="btn-reset">Restablecer catálogo</button>
+            </section>
+        </div>
+    </section>
+
+    <!-- ============ PIE ============ -->
+    <footer class="pie">
+        <div class="contenedor pie__interior">
+            <div class="pie__marca">
+                <span class="marca__sello marca__sello--chico" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" fill="none">
+                        <path d="M16 25c0-6.5 4-11.5 10.5-12.8C25.6 20 20.6 24.4 16 25Z" fill="currentColor"/>
+                        <path d="M16 25c0-5-3-8.8-8-10 0 6.2 3.6 9.4 8 10Z" fill="currentColor" opacity=".55"/>
+                    </svg>
+                </span>
+                <div>
+                    <strong>TIENDONA</strong>
+                    <p>Fruta fresca, cuenta clara.</p>
+                </div>
+            </div>
+
+            <div class="pie__meta">
+                <p>Precios sujetos a disponibilidad de temporada.</p>
+                <p id="pie-actualizado">Catálogo actualizado hoy.</p>
+            </div>
+
+            <div class="pie__acciones">
+                <button type="button" class="pie__cmd" id="btn-paleta-pie">Comandos <kbd>⌘K</kbd></button>
+                <button type="button" class="pie__privado" id="btn-acceso-privado" aria-label="Acceso privado" title="Acceso privado">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="5" y="10" width="14" height="10" rx="3" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
                 </button>
             </div>
         </div>
-    </div>
+        <div class="contenedor pie__base">
+            <span>© 2026 TIENDONA</span>
+            <span>Hecho para vender mejor.</span>
+        </div>
+    </footer>
 
-    <!-- MODAL DE RESUMEN / CUENTA GENERADA -->
-    <div class="modal-backdrop" id="modal-cuenta" hidden>
-        <div class="modal-card glass-panel" role="dialog" aria-modal="true" aria-labelledby="modal-cta-titulo">
-            <div class="modal-card__header">
-                <div>
-                    <p class="modal-card__etiqueta">Cuenta / Pedido</p>
-                    <h3 class="modal-card__titulo" id="modal-cta-titulo">Resumen de pedido</h3>
-                </div>
-                <button type="button" class="btn-cerrar" id="cerrar-modal-cta" aria-label="Cerrar">✕</button>
+    <!-- ============ CARRITO FLOTANTE ============ -->
+    <button type="button" class="carrito-flotante" id="carrito-flotante" hidden aria-label="Abrir mi cuenta">
+        <span class="carrito-flotante__icono">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <b id="fab-badge">0</b>
+        </span>
+        <span class="carrito-flotante__texto">
+            <small>Mi cuenta</small>
+            <strong id="fab-total">$0.00</strong>
+        </span>
+        <svg class="carrito-flotante__flecha" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- ============ CAJÓN DEL PEDIDO ============ -->
+    <div class="velo" id="velo-carrito" hidden></div>
+
+    <aside class="cajon" id="cajon-carrito" aria-hidden="true" aria-labelledby="cajon-titulo">
+        <header class="cajon__cabecera">
+            <div>
+                <p class="eyebrow"><span class="punto"></span> Cuenta / pedido</p>
+                <h2 id="cajon-titulo">Tu pedido</h2>
             </div>
-            <div class="modal-card__body" id="modal-cta-cuerpo"></div>
-            <div class="modal-card__footer">
-                <button type="button" class="boton boton--principal" id="aceptar-modal-cta">Listo</button>
+            <button type="button" class="btn-cerrar" data-cerrar-carrito aria-label="Cerrar pedido">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </header>
+
+        <div class="cajon__cuerpo">
+            <div class="cajon__vacio" id="cajon-vacio">
+                <span class="cajon__vacio-icono" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <path d="M14 24h36l-3 26H17L14 24Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M24 24v-4a8 8 0 0 1 16 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M32 34c0 5 3 8 8 9-1-5-4-8-8-9Z" fill="currentColor" opacity=".35"/>
+                    </svg>
+                </span>
+                <p>Tu canasta está vacía</p>
+                <span>Elige una fruta del catálogo para comenzar.</span>
+                <button type="button" class="btn btn--fantasma btn--sm" id="cajon-ir-catalogo">Ver catálogo</button>
+            </div>
+
+            <div class="cajon__lista" id="cajon-lista" hidden></div>
+
+            <label class="nota-campo" for="nota-general">
+                <span>Nota para la tienda <em>(opcional)</em></span>
+                <textarea id="nota-general" rows="2" maxlength="240" placeholder="Ej. Entregar el viernes por la mañana"></textarea>
+            </label>
+        </div>
+
+        <footer class="cajon__pie">
+            <div class="totales">
+                <div><span>Artículos</span><strong id="total-unidades">0</strong></div>
+                <div><span>Subtotal</span><strong id="total-dinero">$0.00</strong></div>
+                <div class="totales__pendiente" id="aviso-pendiente" hidden>Hay precios por confirmar.</div>
+            </div>
+            <div class="cajon__botones">
+                <button type="button" class="btn btn--fantasma" id="btn-limpiar">Limpiar</button>
+                <button type="button" class="btn btn--primario" id="btn-generar">Generar cuenta</button>
+            </div>
+        </footer>
+    </aside>
+
+    <!-- ============ MODAL: PRODUCTO ============ -->
+    <div class="modal-fondo" id="modal-producto" hidden>
+        <div class="modal modal--producto" role="dialog" aria-modal="true" aria-labelledby="mp-titulo">
+            <button type="button" class="modal__cerrar" data-cerrar="modal-producto" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <div class="mp__media">
+                <img id="mp-imagen" alt="" decoding="async">
+                <span class="pastilla" id="mp-estado"></span>
+            </div>
+
+            <div class="mp__cuerpo">
+                <p class="eyebrow" id="mp-categoria">Manzana</p>
+                <h2 id="mp-titulo">Producto</h2>
+                <p class="mp__info" id="mp-info"></p>
+
+                <div class="campo">
+                    <span class="campo__label">Presentación</span>
+                    <div class="segmentos" id="mp-presentaciones"></div>
+                </div>
+
+                <div class="campo">
+                    <span class="campo__label">Calibre</span>
+                    <div class="chips" id="mp-calibres"></div>
+                    <input type="text" class="input" id="mp-calibre-otro" maxlength="24" placeholder="Otro calibre (opcional)" autocomplete="off">
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" for="mp-nota">Nota para este producto</label>
+                    <textarea class="input" id="mp-nota" rows="2" maxlength="160" placeholder="Ej. Bien maduras"></textarea>
+                </div>
+
+                <div class="mp__pie">
+                    <div class="stepper" aria-label="Cantidad">
+                        <button type="button" id="mp-menos" aria-label="Disminuir">−</button>
+                        <span id="mp-cantidad">1</span>
+                        <button type="button" id="mp-mas" aria-label="Aumentar">+</button>
+                    </div>
+                    <button type="button" class="btn btn--primario btn--grande" id="mp-agregar">
+                        <span id="mp-etiqueta">Agregar</span> · <span id="mp-subtotal">—</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer class="pie-pagina">
-        <p>Calculadora de frutas · Pedido y Edición</p>
-    </footer>
+    <!-- ============ MODAL: RECIBO ============ -->
+    <div class="modal-fondo" id="modal-cuenta" hidden>
+        <div class="modal modal--recibo" role="dialog" aria-modal="true" aria-label="Cuenta del pedido">
+            <button type="button" class="modal__cerrar" data-cerrar="modal-cuenta" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="recibo" id="recibo"></div>
+            <div class="recibo__acciones">
+                <button type="button" class="btn btn--fantasma btn--sm" id="btn-copiar-recibo">Copiar</button>
+                <button type="button" class="btn btn--fantasma btn--sm" id="btn-imprimir">Imprimir</button>
+                <button type="button" class="btn btn--primario btn--sm" data-cerrar="modal-cuenta">Listo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: ACCESO ADMIN ============ -->
+    <div class="modal-fondo" id="modal-admin" hidden>
+        <div class="modal modal--gate" role="dialog" aria-modal="true" aria-labelledby="gate-titulo">
+            <button type="button" class="modal__cerrar modal__cerrar--claro" data-cerrar="modal-admin" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <div class="gate__sello" id="gate-sello" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="5" y="10" width="14" height="10" rx="3" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" stroke="currentColor" stroke-width="1.6"/>
+                    <circle cx="12" cy="15" r="1.4" fill="currentColor"/>
+                </svg>
+            </div>
+            <p class="eyebrow eyebrow--claro">Acceso restringido</p>
+            <h2 id="gate-titulo">Modo administrador</h2>
+            <div id="gate-cuerpo"></div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: CONFIRMACIÓN ============ -->
+    <div class="modal-fondo" id="modal-confirmar" hidden>
+        <div class="modal modal--confirmar" role="alertdialog" aria-modal="true" aria-labelledby="conf-titulo" aria-describedby="conf-texto">
+            <h3 id="conf-titulo">Confirmar</h3>
+            <p id="conf-texto"></p>
+            <div class="conf__acciones">
+                <button type="button" class="btn btn--fantasma btn--sm" id="conf-cancelar">Cancelar</button>
+                <button type="button" class="btn btn--peligro btn--sm" id="conf-aceptar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ MODAL: NUEVO PRODUCTO ============ -->
+    <div class="modal-fondo" id="modal-nuevo" hidden>
+        <div class="modal modal--form" role="dialog" aria-modal="true" aria-labelledby="nuevo-titulo">
+            <button type="button" class="modal__cerrar" data-cerrar="modal-nuevo" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <p class="eyebrow"><span class="punto"></span> Catálogo</p>
+            <h2 id="nuevo-titulo">Nuevo producto</h2>
+
+            <form id="form-nuevo" class="form-nuevo" autocomplete="off">
+                <div class="form-nuevo__fila">
+                    <label class="campo-admin">
+                        <span>Nombre</span>
+                        <input type="text" id="nuevo-nombre" maxlength="60" placeholder="Ej. Manzana Fuji" required>
+                    </label>
+                    <label class="campo-admin">
+                        <span>Categoría</span>
+                        <select id="nuevo-categoria">
+                            <option value="manzana">Manzana</option>
+                            <option value="uva">Uva</option>
+                            <option value="pera">Pera</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label class="campo-admin">
+                    <span>Descripción corta</span>
+                    <input type="text" id="nuevo-info" maxlength="80" placeholder="Ej. Caja o cartón · Dulce">
+                </label>
+
+                <label class="campo-admin">
+                    <span>Imagen (ruta o URL)</span>
+                    <input type="text" id="nuevo-imagen" placeholder="imagenes/fuji.jpg" autocomplete="off">
+                </label>
+
+                <div class="campo-admin">
+                    <span>Presentaciones</span>
+                    <div class="checks">
+                        <label><input type="checkbox" value="caja" checked> Caja</label>
+                        <label><input type="checkbox" value="carton"> Cartón</label>
+                        <label><input type="checkbox" value="libra"> Libra</label>
+                    </div>
+                </div>
+
+                <p class="form-clave__error" id="nuevo-error" role="alert"></p>
+
+                <div class="conf__acciones">
+                    <button type="button" class="btn btn--fantasma btn--sm" data-cerrar="modal-nuevo">Cancelar</button>
+                    <button type="submit" class="btn btn--primario btn--sm">Crear producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ PALETA DE COMANDOS ============ -->
+    <div class="paleta" id="paleta" hidden>
+        <div class="paleta__panel" role="dialog" aria-modal="true" aria-label="Comandos">
+            <div class="paleta__busqueda">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m5 5 5 6-5 6M13 5l5 6-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <input id="paleta-input" type="text" placeholder="Escribe un comando…  /admin" autocomplete="off" spellcheck="false" aria-label="Buscar comando">
+                <kbd>Esc</kbd>
+            </div>
+            <div class="paleta__lista" id="paleta-lista" role="listbox" aria-label="Comandos disponibles"></div>
+            <div class="paleta__pie">
+                <span><kbd>↑</kbd><kbd>↓</kbd> navegar</span>
+                <span><kbd>↵</kbd> ejecutar</span>
+                <span class="paleta__seguro">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="5" y="10" width="14" height="10" rx="3" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                    Acceso cifrado
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+    <noscript>
+        <div class="sin-js">Activa JavaScript para usar la calculadora de pedidos de TIENDONA.</div>
+    </noscript>
 
     <script src="cerebro.js" defer></script>
 </body>
